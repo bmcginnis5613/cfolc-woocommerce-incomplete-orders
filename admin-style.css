@@ -122,6 +122,10 @@
     width: 340px;
 }
 
+.wco-product-filter {
+    width: 220px;
+}
+
 .wco-status-filter {
     width: 240px;
 }
@@ -425,8 +429,8 @@
 
 /* Incomplete orders date-range report */
 #wco-table-wrap { overflow-x: auto; }
-.usr-renewals-table { min-width: 1720px; }
-.usr-col-payment, .usr-col-reference { overflow-wrap: anywhere; }
+.usr-renewals-table { min-width: 2050px; }
+.usr-col-payment, .usr-col-reference, .usr-col-user_email, .usr-col-billing_email { overflow-wrap: anywhere; }
 .usr-col-coupon, .usr-col-chapter { overflow-wrap: anywhere; }
 .usr-col-last4 { width: 95px; }
 

@@ -107,6 +107,8 @@ class FT_WC_Incomplete_Orders_Report {
             'id'       => true,
             'date'     => true,
             'customer' => true,
+            'user_email' => true,
+            'billing_email' => true,
             'status'   => true,
             'coupon'   => true,
             'items'    => true,
@@ -219,13 +221,21 @@ class FT_WC_Incomplete_Orders_Report {
             'cancelled',
             'wc-credit-issued',
             'credit-issued',
+            'wc-checkout-draft',
+            'checkout-draft',
+            'wc-draft',
+            'draft',
         );
         $reportable_statuses = array();
 
         foreach (wc_get_order_statuses() as $status_slug => $status_label) {
             if (
                 in_array($status_slug, $excluded_statuses, true) ||
-                strcasecmp(trim(wp_strip_all_tags($status_label)), 'Credit Issued') === 0
+                in_array(
+                    strtolower(trim(wp_strip_all_tags($status_label))),
+                    array('credit issued', 'draft', 'checkout draft'),
+                    true
+                )
             ) {
                 continue;
             }
@@ -406,7 +416,9 @@ class FT_WC_Incomplete_Orders_Report {
             $customer_id = $order->get_customer_id();
 
             // ── Customer account and ACF user fields ───────────────────────────────
-            $user              = $customer_id ? get_userdata($customer_id) : false;
+            $user = $customer_id ? get_userdata($customer_id) : false;
+            $wp_user_email = $user ? (string) $user->user_email : '';
+            $billing_email = (string) $order->get_billing_email();
             if ($user) {
                 $customer = trim((string) $user->first_name . ' ' . (string) $user->last_name);
                 if ($customer === '') {
@@ -487,6 +499,8 @@ class FT_WC_Incomplete_Orders_Report {
                 'date'           => $order->get_date_created() ? $order->get_date_created()->date('Y-m-d H:i:s') : '',
                 'customer'       => $customer,
                 'customer_id'    => $customer_id,
+                'user_email'     => $wp_user_email,
+                'billing_email'  => $billing_email,
                 'status'         => $order_status,
                 'coupon'         => implode(', ', array_map('strval', $coupon_codes)),
                 'items'          => $item_names,
@@ -495,7 +509,6 @@ class FT_WC_Incomplete_Orders_Report {
                 'currency'       => $order->get_currency(),
                 'invoice_number' => $invoice_number,
                 'invoice_url'    => $invoice_url,
-                'email'          => $email,
                 'extra_emails'   => $additional_emails,
                 'group_number'   => $user_fields['group_number'],
                 'local_board'    => $user_fields['local_board'],
@@ -651,7 +664,8 @@ class FT_WC_Incomplete_Orders_Report {
             'Payment Method',
             'CC Digits',
             'ACH/Check Ref',
-            'Email',
+            'WP User Email',
+            'WC Billing Email',
         );
     }
 
@@ -682,7 +696,8 @@ class FT_WC_Incomplete_Orders_Report {
             $row['payment'],
             $row['last4'],
             $row['reference'],
-            $row['email'],
+            $row['user_email'],
+            $row['billing_email'],
         );
     }
 
@@ -766,7 +781,7 @@ class FT_WC_Incomplete_Orders_Report {
 
             // Headers
             $headers = $this->get_xlsx_headers();
-            $columns = range('A', 'N');
+            $columns = range('A', 'O');
 
             foreach ($headers as $index => $header) {
                 $sheet->setCellValue($columns[$index] . '1', $header);
@@ -779,7 +794,7 @@ class FT_WC_Incomplete_Orders_Report {
                     'startColor' => array('rgb' => 'E8E8E8'),
                 ),
             );
-            $sheet->getStyle('A1:N1')->applyFromArray($header_style);
+            $sheet->getStyle('A1:O1')->applyFromArray($header_style);
 
             // Data rows
             $row = 2;
@@ -922,7 +937,7 @@ class FT_WC_Incomplete_Orders_Report {
                     <input type="date" id="ftwci-date-to" name="ftwci_date_to" value="<?php echo esc_attr($date_range['to']); ?>" required>
                 </div>
 
-                <div class="wco-filter-field wco-multiselect-filter">
+                <div class="wco-filter-field wco-multiselect-filter wco-product-filter">
                     <span id="ftwci-products-label" class="wco-multiselect-filter-label">Products:</span>
                     <div class="wco-multiselect" data-default-summary="All products" data-plural-label="products selected">
                         <button
@@ -1018,6 +1033,8 @@ class FT_WC_Incomplete_Orders_Report {
                             'last4'    => 'CC Digits',
                             'reference' => 'ACH/Check Ref',
                             'customer' => 'Customer',
+                            'user_email' => 'WP User Email',
+                            'billing_email' => 'WC Billing Email',
                             'status'   => 'Status',
                             'coupon'   => 'Coupon',
                             'items'    => 'Product',
@@ -1087,6 +1104,12 @@ class FT_WC_Incomplete_Orders_Report {
                     <th class="usr-col-customer"<?php echo $hide('customer'); ?>>
                         Customer
                     </th>
+                    <th class="usr-col-user_email"<?php echo $hide('user_email'); ?>>
+                        WP User Email
+                    </th>
+                    <th class="usr-col-billing_email"<?php echo $hide('billing_email'); ?>>
+                        WC Billing Email
+                    </th>
                     <th class="usr-col-status"<?php echo $hide('status'); ?>>
                         Status
                     </th>
@@ -1139,6 +1162,16 @@ class FT_WC_Incomplete_Orders_Report {
                             <?php else : ?>
                                 <?php echo esc_html($row['customer']); ?>
                             <?php endif; ?>
+                        </td>
+
+                        <!-- WordPress user email -->
+                        <td class="usr-col-user_email"<?php echo $hide('user_email'); ?>>
+                            <?php echo $row['user_email'] !== '' ? esc_html($row['user_email']) : '—'; ?>
+                        </td>
+
+                        <!-- WooCommerce billing email -->
+                        <td class="usr-col-billing_email"<?php echo $hide('billing_email'); ?>>
+                            <?php echo $row['billing_email'] !== '' ? esc_html($row['billing_email']) : '—'; ?>
                         </td>
 
                         <!-- Status badge -->
@@ -1211,7 +1244,7 @@ class FT_WC_Incomplete_Orders_Report {
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="13">
+                    <td colspan="15">
                         <strong>
                             Showing <?php echo esc_html(number_format_i18n(count($rows))); ?>
                             of <?php echo esc_html(number_format_i18n((int) $total)); ?> orders
