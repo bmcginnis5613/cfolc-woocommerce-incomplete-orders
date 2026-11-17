@@ -89,14 +89,14 @@ class FT_WC_Incomplete_Orders_Report {
             'ftwci-admin',
             plugin_dir_url(__FILE__) . 'admin-style.css',
             array(),
-            '2.3.2'
+            '2.4.0'
         );
 
         wp_enqueue_script(
             'ftwci-admin',
             plugin_dir_url(__FILE__) . 'admin-script.js',
             array('jquery'),
-            '2.1.0',
+            '2.2.0',
             true
         );
     }
@@ -1166,12 +1166,24 @@ class FT_WC_Incomplete_Orders_Report {
 
                         <!-- WordPress user email -->
                         <td class="usr-col-user_email"<?php echo $hide('user_email'); ?>>
-                            <?php echo $row['user_email'] !== '' ? esc_html($row['user_email']) : '—'; ?>
+                            <?php if ($row['user_email'] !== '') : ?>
+                                <a href="<?php echo esc_url('mailto:' . $row['user_email']); ?>">
+                                    <?php echo esc_html($row['user_email']); ?>
+                                </a>
+                            <?php else : ?>
+                                —
+                            <?php endif; ?>
                         </td>
 
                         <!-- WooCommerce billing email -->
                         <td class="usr-col-billing_email"<?php echo $hide('billing_email'); ?>>
-                            <?php echo $row['billing_email'] !== '' ? esc_html($row['billing_email']) : '—'; ?>
+                            <?php if ($row['billing_email'] !== '') : ?>
+                                <a href="<?php echo esc_url('mailto:' . $row['billing_email']); ?>">
+                                    <?php echo esc_html($row['billing_email']); ?>
+                                </a>
+                            <?php else : ?>
+                                —
+                            <?php endif; ?>
                         </td>
 
                         <!-- Status badge -->
