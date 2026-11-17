@@ -1,0 +1,476 @@
+/* ============================================================
+   Admin styles for WC Incomplete Orders plugin
+   ============================================================ */
+
+.wrap table.wp-list-table {
+    margin-top: 20px;
+}
+
+.wrap table.wp-list-table th {
+    font-weight: 600;
+}
+
+.wrap table.wp-list-table tfoot td {
+    background-color: #f9f9f9;
+    padding: 15px;
+}
+
+/* ── Help tip ────────────────────────────────────────────── */
+/* ── Controls bar ────────────────────────────────────────── */
+.usr-controls {
+    margin: 0 0 20px;
+    overflow: hidden;
+    border: 1px solid #ccd0d4;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Export buttons ──────────────────────────────────────── */
+.wco-order-filters--top .button.wco-export-xlsx {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-color: #217346;
+    background: #217346;
+    color: #fff;
+}
+
+.wco-order-filters--top .button.wco-export-xlsx:hover,
+.wco-order-filters--top .button.wco-export-xlsx:focus {
+    border-color: #185c37;
+    background: #185c37;
+    color: #fff;
+}
+
+.wco-order-filters--top .button.wco-export-xlsx:focus {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #217346;
+}
+
+.wco-order-filters--top .wco-export-xlsx .dashicons {
+    color: #fff !important;
+}
+
+.usr-column-controls {
+    padding: 16px 18px 18px;
+}
+
+.wco-order-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.wco-order-filters label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.wco-order-filters label:hover {
+    background-color: #f0f0f1;
+}
+
+.wco-order-filters input[type="checkbox"] {
+    margin: 0;
+}
+
+.wco-order-filters--top {
+    align-items: flex-end;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.wco-order-filters--top label {
+    padding: 0;
+    border-radius: 0;
+    font-weight: 600;
+    cursor: default;
+}
+
+.wco-order-filters--top label:hover {
+    background: transparent;
+}
+
+.wco-order-filters--top input[type="date"],
+.wco-order-filters--top .button {
+    min-height: 40px;
+}
+
+.wco-order-filters--top input[type="date"] {
+    min-width: 160px;
+}
+
+.wco-filter-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.wco-filter-field > label,
+.wco-multiselect-filter-label {
+    line-height: 1.4;
+}
+
+.wco-multiselect-filter {
+    width: 340px;
+}
+
+.wco-status-filter {
+    width: 240px;
+}
+
+.wco-multiselect-filter-label {
+    font-weight: 600;
+}
+
+.wco-multiselect {
+    position: relative;
+    width: 100%;
+}
+
+.wco-order-filters--top .wco-multiselect-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 0 12px;
+    text-align: left;
+}
+
+#ftwci-products-summary,
+#ftwci-statuses-summary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wco-multiselect-toggle .dashicons {
+    flex: 0 0 auto;
+    transition: transform 0.15s ease;
+}
+
+.wco-multiselect-toggle[aria-expanded="true"] .dashicons {
+    transform: rotate(180deg);
+}
+
+.wco-multiselect-panel {
+    position: absolute;
+    z-index: 1000;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 420px;
+    max-width: min(90vw, 420px);
+    padding: 10px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
+.wco-multiselect-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.wco-multiselect-search {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.wco-multiselect-clear {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.wco-multiselect-options {
+    max-height: 280px;
+    overflow-y: auto;
+    border-top: 1px solid #dcdcde;
+}
+
+.wco-order-filters--top .wco-multiselect-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 6px;
+    border-bottom: 1px solid #f0f0f1;
+    border-radius: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.wco-order-filters--top .wco-multiselect-option:hover {
+    background: #f6f7f7;
+}
+
+.wco-multiselect-option input {
+    flex: 0 0 auto;
+    margin-top: 2px;
+}
+
+.wco-multiselect-option-name {
+    overflow-wrap: anywhere;
+}
+
+.wco-multiselect-empty {
+    display: block;
+    padding: 12px 6px;
+    color: #646970;
+}
+
+.wco-order-filters--top > .button {
+    padding: 0 22px;
+}
+
+/* ── Column toggles ──────────────────────────────────────── */
+.usr-column-toggles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px;
+    width: 100%;
+}
+
+.usr-column-toggles label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 8px 10px;
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    background: #fff;
+    color: #2c3338;
+    transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+
+.usr-column-toggles label:hover {
+    border-color: #72aee6;
+    background-color: #f6f7f7;
+}
+
+.usr-column-toggles label:has(input:checked) {
+    border-color: #72aee6;
+    background: #f0f6fc;
+}
+
+.usr-column-toggles label:focus-within {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.usr-column-toggles input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin: 0;
+    accent-color: #2271b1;
+}
+
+/* ── Status badges ───────────────────────────────────────── */
+.wco-status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+.wco-status-badge.status-pending {
+    background-color: #fef3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.wco-status-badge.status-processing {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #17a2b8;
+}
+
+.wco-status-badge.status-on-hold {
+    background-color: #fff3cd;
+    color: #664d03;
+    border: 1px solid #fd7e14;
+}
+
+.wco-status-badge.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #dc3545;
+}
+
+.wco-status-badge.status-refunded {
+    background-color: #fbeaea;
+    color: #8a1c1c;
+    border: none;
+}
+
+.wco-status-badge.status-failed {
+    background-color: #f8d7da;
+    color: #491217;
+    border: 1px solid #b02a37;
+}
+
+.wco-status-badge.status-draft {
+    background-color: #f0f0f1;
+    color: #50575e;
+    border: 1px solid #a7aaad;
+}
+
+.wco-status-badge.status-custom {
+    background-color: #e8f0fe;
+    color: #1a56db;
+    border: 1px solid #76a9fa;
+}
+
+/* ── Item list ───────────────────────────────────────────── */
+.wco-item-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wco-item-list li {
+    padding: 2px 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.wco-item-list li + li {
+    border-top: 1px solid #f0f0f1;
+}
+
+/* ── Invoice link ────────────────────────────────────────── */
+.wco-invoice-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #2271b1;
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.wco-invoice-link:hover {
+    color: #135e96;
+    text-decoration: none;
+}
+
+.wco-invoice-link:hover .wco-invoice-number {
+    text-decoration: underline;
+}
+
+.wco-invoice-link .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #d63638;
+}
+
+.wco-no-invoice {
+    color: #a7aaad;
+}
+
+/* ── Column transitions ──────────────────────────────────── */
+.usr-renewals-table th,
+.usr-renewals-table td {
+    transition: opacity 0.2s;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media screen and (max-width: 782px) {
+    .usr-column-controls {
+        padding: 14px;
+    }
+
+    .usr-column-controls,
+    .usr-column-toggles {
+        width: 100%;
+    }
+
+    .wco-order-filters {
+        width: 100%;
+    }
+
+    .wco-filter-field,
+    .wco-multiselect,
+    .wco-multiselect-toggle,
+    .wco-filter-field input[type="date"] {
+        width: 100%;
+    }
+
+    .wco-order-filters--top > .button {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .wco-multiselect-panel {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Incomplete orders date-range report */
+#wco-table-wrap { overflow-x: auto; }
+.usr-renewals-table { min-width: 1720px; }
+.usr-col-payment, .usr-col-reference { overflow-wrap: anywhere; }
+.usr-col-coupon, .usr-col-chapter { overflow-wrap: anywhere; }
+.usr-col-last4 { width: 95px; }
+
+/* ── Report pagination ───────────────────────────────────── */
+.wco-pagination {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    margin: 24px 0;
+}
+
+.wco-pagination .tablenav-pages {
+    float: none;
+    margin: 0;
+    text-align: center;
+}
+
+.wco-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    min-height: 42px;
+    box-sizing: border-box;
+    margin: 0 3px;
+    padding: 7px 12px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.wco-pagination a.page-numbers:hover,
+.wco-pagination a.page-numbers:focus {
+    border-color: #135e96;
+    background: #f0f6fc;
+    color: #135e96;
+}
+
+.wco-pagination .page-numbers.current {
+    border-color: #2271b1;
+    background: #2271b1;
+    color: #fff;
+}
